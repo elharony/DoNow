@@ -65,6 +65,7 @@ describe('controller', function () {
 
 		subject.setView('');
 
+		expect(model.read).toHaveBeenCalled();
 		expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
 	});
 
@@ -90,22 +91,44 @@ describe('controller', function () {
 
 		it('should show active entries', function () {
 			// TODO: write test
-			var todo = {title: 'my todo'};
-			setUpModel([todo]);
-
-			subject.setView('#/active');
-
-			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
+			var todos = [
+				{
+				  title: "my todo 1",
+				  completed: false
+				},
+				{
+				  title: "my todo 2",
+				  completed: false
+				}
+			];
+		
+			setUpModel(todos);
+	
+			subject.setView("#/active");
+	
+			expect(view.render).toHaveBeenCalledWith("showEntries", todos);
+			expect(view.render).toHaveBeenCalledWith("setFilter", "active");
 		});
 
 		it('should show completed entries', function () {
 			// TODO: write test
-			var todo = {title: 'my todo'};
-			setUpModel([todo]);
-
-			subject.setView('#/completed');
-
-			expect(view.render).toHaveBeenCalledWith('showEntries', [todo]);
+			var todos = [
+				{
+				  title: "my todo 1",
+				  completed: true
+				},
+				{
+				  title: "my todo 2",
+				  completed: true
+				}
+			];
+		
+			setUpModel(todos);
+	
+			subject.setView("#/completed");
+	
+			expect(view.render).toHaveBeenCalledWith("showEntries", todos);
+			expect(view.render).toHaveBeenCalledWith("setFilter", "completed");
 		});
 	});
 
@@ -174,17 +197,7 @@ describe('controller', function () {
 		it('should add a new todo to the model', function () {
 			// TODO: write test
 			setUpModel([]);
-
 			subject.setView('');
-
-			view.render.calls.reset();
-			model.read.calls.reset();
-			model.read.and.callFake(function (callback) {
-				callback([{
-					title: 'a new todo',
-					completed: false
-				}]);
-			});
 
 			view.trigger('newTodo', 'a new todo');
 
