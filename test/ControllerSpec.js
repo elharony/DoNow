@@ -114,12 +114,12 @@ describe('controller', function () {
 			// TODO: write test
 			var todos = [
 				{
-				  title: "my todo 1",
-				  completed: true
+					title: "my todo 1",
+					completed: true
 				},
 				{
-				  title: "my todo 2",
-				  completed: true
+					title: "my todo 2",
+					completed: true
 				}
 			];
 		
@@ -191,10 +191,50 @@ describe('controller', function () {
 	describe('toggle all', function () {
 		it('should toggle all todos to completed', function () {
 			// TODO: write test
+			var todos = [
+				{
+					id: 42,
+					title: "my todo 1",
+					completed: false
+				},
+				{
+					id: 43,
+					title: "my todo 2",
+					completed: false
+				}
+			];		
+			setUpModel(todos);
+
+			subject.setView("");
+
+			view.trigger("toggleAll", { completed: true });
+
+			expect(model.update).toHaveBeenCalledWith(42, { completed: true }, jasmine.any(Function));
+			expect(model.update).toHaveBeenCalledWith(43, { completed: true }, jasmine.any(Function));
 		});
 
 		it('should update the view', function () {
 			// TODO: write test
+			var todos = [
+				{
+					id: 42,
+					title: "my todo 1",
+					completed: false
+				},
+				{
+					id: 43,
+					title: "my todo 2",
+					completed: false
+				}
+			];
+			setUpModel(todos);
+	
+			subject.setView("");
+
+			view.trigger("toggleAll", { completed: true });
+	
+			expect(view.render).toHaveBeenCalledWith("elementComplete", {id: 42, completed: true});
+			expect(view.render).toHaveBeenCalledWith("elementComplete", {id: 43, completed: true});
 		});
 	});
 
