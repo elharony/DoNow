@@ -80,14 +80,6 @@
 
 		callback = callback || function () {};
 
-		// Generate an ID
-	    var newId = ""; 
-	    var charset = "0123456789";
-
-        for (var i = 0; i < 6; i++) {
-     		newId += charset.charAt(Math.floor(Math.random() * charset.length));
-		}
-
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			for (var i = 0; i < todos.length; i++) {
@@ -104,7 +96,7 @@
 		} else {
 
     		// Assign an ID
-			updateData.id = parseInt(newId);
+			updateData.id = parseInt(this.generateId());
     
 
 			todos.push(updateData);
@@ -112,6 +104,47 @@
 			callback.call(this, [updateData]);
 		}
 	};
+
+	/**
+	 * Generate ID
+	 */
+	Store.prototype.generateId = function () {
+	    var newId = ""; 
+	    var charset = "0123456789";
+
+        for (var i = 0; i < 6; i++) {
+     		newId += charset.charAt(Math.floor(Math.random() * charset.length));
+		}
+
+		// Check if the Generated ID is already exist
+		if(this.isExist(newId)) {
+			// If so, recursion!
+			return this.generateId();
+		}
+
+		// If not, return the Generated ID
+		return newId;
+	}
+
+	/**
+	 * Check if a given ID is already taken
+	 * 
+	 * @param {number} the given ID we want to check if existed or not in the database
+	 */
+	Store.prototype.isExist = function (id) {
+		var data = JSON.parse(localStorage[this._dbName])
+		var todos = data.todos;
+
+		// Check if the given ID exists
+		for(var i = 0; i < todos.length; i++) {
+			if(todos[i].id == id) {
+				return true;
+			}
+		}
+
+		// It's a Unique ID!
+		return false;
+	}
 
 	/**
 	 * Will remove an item from the Store based on its ID
