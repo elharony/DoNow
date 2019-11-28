@@ -3,11 +3,11 @@ DoNow is a Web Application built to save your day-to-day tasks in a simpler way,
 
 ## Getting Started
 - `git clone https://github.com/elharony/DoNow.git`
-- `cd To-Do List`
+- `cd DoNow List`
+- `npm install`
 - `start index.html`
 
 ## How to run the tests?
-- `npm install`
 - `cd test/`
 - `start SpecRunner.html`
 
