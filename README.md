@@ -1,9 +1,9 @@
-# DoNow - A Simple MVC To-Do Website
-DoNow is a Web Application built to save your day-to-day tasks in a simpler way, it saves your data (When opens on the same browser) without signing up!
+# DoNow - The simpest To-Do List App!
+DoNow is a Web Application built to save your day-to-day tasks in a simpler way, it saves your data (When opens on the same browser) without signing up. Very fast, and functional app!
 
 ## Getting Started
 - `git clone https://github.com/elharony/DoNow.git`
-- `cd DoNow List`
+- `cd DoNow`
 - `npm install`
 - `start index.html`
 
